@@ -81,6 +81,8 @@ namespace PDFMapper
                 textBox.SelectAll();
 
                 dataGrid.ItemsSource = listitems;
+                dataGrid.Visibility = Visibility.Visible;
+                button2.Visibility = Visibility.Visible;
             }
         }
 
@@ -98,7 +100,7 @@ namespace PDFMapper
 
                 if (ListOfProperties != null)
                 {
-                    BuildClass(ListOfProperties);
+                    textBlock.Text = BuildClass(ListOfProperties);
                 }
             }
             catch (Exception ex)
