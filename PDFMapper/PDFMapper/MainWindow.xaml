@@ -1,0 +1,21 @@
+﻿<Window x:Class="PDFMapper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PDFMapper"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="852.899" Width="649.576">
+    <Grid Margin="0,0,0,354">
+        <Button x:Name="button" Content="Select File" HorizontalAlignment="Left" Margin="13,28,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
+        <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="textBox" HorizontalAlignment="Left" Height="55" Margin="10,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497"/>
+        <TextBox x:Name="txtinitial" HorizontalAlignment="Left" Height="23" Margin="13,0,0,0" TextWrapping="Wrap" Text="C:\Projects\FormBuilder\FormBuilder\FormBuilder\Carriers" VerticalAlignment="Top" Width="395"/>
+        <Button x:Name="button1" Content="Copy" HorizontalAlignment="Left" Margin="13,134,0,0" VerticalAlignment="Top" Width="47" Click="button1_Click"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="10,206,0,-209" Width="624" Background="#FFF0F0F0" ColumnHeaderHeight="100" Height="471" VerticalAlignment="Top">
+            <DataGrid.Columns>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="button2" Content="CreateClasses" HorizontalAlignment="Left" Height="40" Margin="13,709,0,-281" VerticalAlignment="Top" Width="275" Click="button2_Click"/>
+    </Grid>
+</Window>
