@@ -29,7 +29,14 @@ namespace PDFMapper
         public MainWindow()
         {
             InitializeComponent();
+            button3.Visibility = Visibility.Hidden;
+           // IterateClass(typeof(SampleClass));
         }
+
+        //private void IterateClass(object Object)
+        //{
+        //    var Properties = typeof(object).GetProperties().ToList();
+        //}
 
         #region Click handlers
         private void button_Click(object sender, RoutedEventArgs e)
@@ -67,24 +74,49 @@ namespace PDFMapper
                 PdfReader pdfReader = new PdfReader(bytesarray);
                 var fields = pdfReader.AcroFields.Fields;
 
-                foreach (var acrofields in fields)
+                if (fields.Count > 0)
                 {
-                    PropertiesArray prop = new PropertiesArray();
-                    str.AppendLine($"{acrofields.Key}");
-                    if (!acrofields.Key.Contains("~"))
+                    foreach (var acrofields in fields)
                     {
-                        prop.Key = acrofields.Key;
-                        listitems.Add(prop);
+                        PropertiesArray prop = new PropertiesArray();
+                        str.AppendLine($"{acrofields.Key}");
+                        if (!acrofields.Key.Contains("~"))
+                        {
+                            prop.Key = acrofields.Key;
+                            listitems.Add(prop);
+                        }
                     }
-                }
-                textBox.Text = str.ToString();
-                textBox.SelectAll();
+                    textBox.Text = str.ToString();
+                    textBox.SelectAll();
 
-                dataGrid.ItemsSource = listitems;
-                dataGrid.Visibility = Visibility.Visible;
-                button2.Visibility = Visibility.Visible;
+                    SampleClass fakeObject = new SampleClass();
+                    var json = Newtonsoft.Json.JsonConvert.SerializeObject(fakeObject);
+
+
+                    dataGrid.ItemsSource = listitems;
+                    dataGrid.Visibility = Visibility.Visible;
+                    button2.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    textBox.Text = string.Empty;
+                    textBlock.Text = string.Empty;
+                    dataGrid.Visibility = Visibility.Hidden;
+                    button2.Visibility = Visibility.Hidden;
+                    button3.Visibility = Visibility.Hidden;
+                }
+            }
+            else
+            {
+                textBox.Text = string.Empty;
+                textBlock.Text = string.Empty;
+                dataGrid.Visibility = Visibility.Hidden;
+                button2.Visibility = Visibility.Hidden;
+                button3.Visibility = Visibility.Hidden;
             }
         }
+
+       
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
@@ -101,6 +133,7 @@ namespace PDFMapper
                 if (ListOfProperties != null)
                 {
                     textBlock.Text = BuildClass(ListOfProperties);
+                    button3.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)
@@ -109,6 +142,12 @@ namespace PDFMapper
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(textBlock.Text);
+            MessageBox.Show("Copied!");
         }
         #endregion
 
@@ -148,6 +187,7 @@ namespace PDFMapper
         }
 
         #endregion
+
 
     }
 
