@@ -38,6 +38,9 @@
     <ApplicationIcon>71RHK4EvMiL.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetFiddle.IntelligentCompletion">
+      <HintPath>C:\Users\pct66\Downloads\NET-Fiddle-Intelligent-Completion-master\.NET-Fiddle-Intelligent-Completion-master\src\DotNetFiddle.IntelligentCompletion\bin\Debug\DotNetFiddle.IntelligentCompletion.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
       <Private>True</Private>

@@ -1,4 +1,5 @@
-﻿using iTextSharp.text.pdf;
+﻿using DotNetFiddle.IntelligentCompletion;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Xml.Serialization;
 
 namespace PDFMapper
 {
@@ -30,8 +31,20 @@ namespace PDFMapper
         {
             InitializeComponent();
             button3.Visibility = Visibility.Hidden;
-           // IterateClass(typeof(SampleClass));
+            // IterateClass(typeof(SampleClass));
+            //var garage = new SampleClass();
+
+            //// TODO init your garage..
+
+            //XmlSerializer xs = new XmlSerializer(typeof(SampleClass));
+            //TextWriter tw = new StreamWriter("test.xml");
+            //xs.Serialize(tw, garage);
+
+            //Console.Write("asd");
+
         }
+
+       
 
         //private void IterateClass(object Object)
         //{
@@ -116,7 +129,7 @@ namespace PDFMapper
             }
         }
 
-       
+
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
@@ -186,8 +199,112 @@ namespace PDFMapper
             return clsString.ToString();
         }
 
+
         #endregion
 
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool found = false;
+            var border = (resultStack.Parent as ScrollViewer).Parent as Border;
+
+            string query = (sender as TextBox).Text;
+
+            if (query.Length == 0)
+            {
+                // Clear 
+                resultStack.Children.Clear();
+                border.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                border.Visibility = System.Windows.Visibility.Visible;
+            }
+
+            // Clear the list 
+            resultStack.Children.Clear();
+
+            // Add the result 
+
+            if (query.Trim() != "" && query.ToString().EndsWith("."))
+            {
+                foreach (var obj in Autocompletetest(query).ToList())
+                {
+                    addItem(obj.Name);
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                resultStack.Children.Add(new TextBlock() { Text = "No results found." });
+            }
+
+        }
+
+        private List<AutoCompleteItem> Autocompletetest(string query)
+        {
+           
+                var source = File.ReadAllText(@"D:\Projects\PracticeThing\GIT\PDFMapper\PDFMapper\SampleClass.cs");
+
+                var sourceMain = $@"using System;
+                using PDFMapper;
+
+                    public class Program
+                    {{
+                        public static void Main()
+                        {{
+                            var dog = new SampleClass();
+                            {query}
+                        }}
+                    }}";
+
+                var service = new CSharpLanguageService();
+
+                var files = new Dictionary<string, string>()
+            {
+                {"dog.cs", source},
+                {"main.cs", sourceMain}
+            };
+
+            var project = service.GetProject(files);
+
+            int dotIndex = sourceMain.IndexOf(".") + 1;
+            var autoCompleteItems = service.GetAutoCompleteItems(project, "main.cs", dotIndex);
+
+            return autoCompleteItems;
+        }
+
+        private void addItem(string text)
+        {
+            TextBlock block = new TextBlock();
+
+            // Add the text 
+            block.Text = text;
+
+            // A little style... 
+            block.Margin = new Thickness(2, 3, 2, 3);
+            block.Cursor = Cursors.Hand;
+
+            // Mouse events 
+            block.MouseLeftButtonUp += (sender, e) =>
+            {
+                textBox1.Text = textBox1.Text + (sender as TextBlock).Text;
+            };
+
+            block.MouseEnter += (sender, e) =>
+            {
+                TextBlock b = sender as TextBlock;
+                b.Background = Brushes.PeachPuff;
+            };
+
+            block.MouseLeave += (sender, e) =>
+            {
+                TextBlock b = sender as TextBlock;
+                b.Background = Brushes.Transparent;
+            };
+
+            // Add to the panel 
+            resultStack.Children.Add(block);
+        }
 
     }
 

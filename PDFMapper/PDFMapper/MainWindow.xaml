@@ -33,6 +33,14 @@
            Height="674" 
            Width="437"/>
         <Button x:Name="button3" Content="Copy" HorizontalAlignment="Left" Margin="586,735,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="13,787,0,0" TextWrapping="Wrap" Text="dog" VerticalAlignment="Top" Width="120" KeyUp="textBox1_KeyUp"/>
+       
+        <Border Width="298" Height="150" BorderBrush="Black" 
+        BorderThickness="1" Margin="157,660,963,10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Name="resultStack"></StackPanel>
+            </ScrollViewer>
+        </Border>
 
     </Grid>
 </Window>

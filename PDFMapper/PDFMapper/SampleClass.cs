@@ -8,6 +8,13 @@ namespace PDFMapper
 {
     public class SampleClass
     {
+
+        public SampleClass()
+        {
+            ListsubclassVal = new List<SubClass>();
+            subclassVal = new SubClass();
+
+        }
         public string stringval { get; set; }
 
         public int intval { get; set; }
@@ -18,7 +25,9 @@ namespace PDFMapper
 
         public DateTime datetimeval { get; set; }
 
-        public List<SubClass> subclassVal { get; set; }
+        public List<SubClass> ListsubclassVal { get; set; }
+
+        public SubClass subclassVal { get; set; }
 
         public Enumcustomer enumtype { get; set; }
 
