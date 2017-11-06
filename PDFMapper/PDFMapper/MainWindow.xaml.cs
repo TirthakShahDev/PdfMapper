@@ -2,7 +2,6 @@
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,6 +43,13 @@ namespace PDFMapper
             //Console.Write("asd");
 
         }
+
+       
+
+        //private void IterateClass(object Object)
+        //{
+        //    var Properties = typeof(object).GetProperties().ToList();
+        //}
 
         #region Click handlers
         private void button_Click(object sender, RoutedEventArgs e)
@@ -123,6 +129,8 @@ namespace PDFMapper
             }
         }
 
+
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(textBox.Text);
@@ -154,11 +162,6 @@ namespace PDFMapper
             Clipboard.SetText(textBlock.Text);
             MessageBox.Show("Copied!");
         }
-
-        private void txtproperties_KeyUp(object sender, KeyEventArgs e)
-        {
-            PerformKeyUpEvent(sender);
-        }
         #endregion
 
         #region Business Logic
@@ -175,6 +178,7 @@ namespace PDFMapper
                 prop.IsDecimal = item.IsDecimal;
                 prop.IsDate = item.IsDate;
                 arr.Add(prop);
+
             }
 
             return arr;
@@ -195,74 +199,10 @@ namespace PDFMapper
             return clsString.ToString();
         }
 
-        private List<AutoCompleteItem> Autocompletetest(string query)
-        {
 
-            var source = File.ReadAllText(@"D:\Projects\PracticeThing\GIT\PDFMapper\PDFMapper\SampleClass.cs");
+        #endregion
 
-            var sourceMain = $@"using System;
-                using PDFMapper;
-
-                    public class Program
-                    {{
-                        public static void Main()
-                        {{
-                            var caseInformation = new SampleClass();
-                            {query}
-                        }}
-                    }}";
-
-            var service = new CSharpLanguageService();
-
-            var files = new Dictionary<string, string>()
-            {
-                {"dog.cs", source},
-                {"main.cs", sourceMain}
-            };
-
-            var project = service.GetProject(files);
-
-            int dotIndex = sourceMain.LastIndexOf(".") + 1;
-            var autoCompleteItems = service.GetAutoCompleteItems(project, "main.cs", dotIndex);
-
-            return autoCompleteItems.Distinct().ToList();
-        }
-
-        private void addItem(string text, object sndr = null)
-        {
-            TextBlock block = new TextBlock();
-
-            // Add the text 
-            block.Text = text;
-
-            // A little style... 
-            block.Margin = new Thickness(2, 3, 2, 3);
-            block.Cursor = Cursors.Hand;
-
-            // Mouse events 
-            block.MouseLeftButtonUp += (sender, e) =>
-            {
-                (sndr as TextBox).Text = (sndr as TextBox).Text + (sender as TextBlock).Text + ".";
-                PerformKeyUpEvent((sndr as TextBox));
-            };
-
-            block.MouseEnter += (sender, e) =>
-            {
-                TextBlock b = sender as TextBlock;
-                b.Background = Brushes.PeachPuff;
-            };
-
-            block.MouseLeave += (sender, e) =>
-            {
-                TextBlock b = sender as TextBlock;
-                b.Background = Brushes.Transparent;
-            };
-
-            // Add to the panel 
-            resultStack.Children.Add(block);
-        }
-
-        public void PerformKeyUpEvent(object sender)
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
             bool found = false;
             var border = (resultStack.Parent as ScrollViewer).Parent as Border;
@@ -289,7 +229,7 @@ namespace PDFMapper
             {
                 foreach (var obj in Autocompletetest(query).ToList())
                 {
-                    addItem(obj.Name, sender);
+                    addItem(obj.Name);
                     found = true;
                 }
             }
@@ -297,8 +237,75 @@ namespace PDFMapper
             {
                 resultStack.Children.Add(new TextBlock() { Text = "No results found." });
             }
+
         }
-        #endregion
+
+        private List<AutoCompleteItem> Autocompletetest(string query)
+        {
+           
+                var source = File.ReadAllText(@"D:\Projects\PracticeThing\GIT\PDFMapper\PDFMapper\SampleClass.cs");
+
+                var sourceMain = $@"using System;
+                using PDFMapper;
+
+                    public class Program
+                    {{
+                        public static void Main()
+                        {{
+                            var dog = new SampleClass();
+                            {query}
+                        }}
+                    }}";
+
+                var service = new CSharpLanguageService();
+
+                var files = new Dictionary<string, string>()
+            {
+                {"dog.cs", source},
+                {"main.cs", sourceMain}
+            };
+
+            var project = service.GetProject(files);
+
+            int dotIndex = sourceMain.IndexOf(".") + 1;
+            var autoCompleteItems = service.GetAutoCompleteItems(project, "main.cs", dotIndex);
+
+            return autoCompleteItems;
+        }
+
+        private void addItem(string text)
+        {
+            TextBlock block = new TextBlock();
+
+            // Add the text 
+            block.Text = text;
+
+            // A little style... 
+            block.Margin = new Thickness(2, 3, 2, 3);
+            block.Cursor = Cursors.Hand;
+
+            // Mouse events 
+            block.MouseLeftButtonUp += (sender, e) =>
+            {
+                textBox1.Text = textBox1.Text + (sender as TextBlock).Text;
+            };
+
+            block.MouseEnter += (sender, e) =>
+            {
+                TextBlock b = sender as TextBlock;
+                b.Background = Brushes.PeachPuff;
+            };
+
+            block.MouseLeave += (sender, e) =>
+            {
+                TextBlock b = sender as TextBlock;
+                b.Background = Brushes.Transparent;
+            };
+
+            // Add to the panel 
+            resultStack.Children.Add(block);
+        }
+
     }
 
 }

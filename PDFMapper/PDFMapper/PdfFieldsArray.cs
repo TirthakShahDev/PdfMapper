@@ -26,7 +26,5 @@ namespace PDFMapper
 
         public bool IsCurrency { get; set; }
 
-        public string txtproperties { get; set; }
-
     }
 }

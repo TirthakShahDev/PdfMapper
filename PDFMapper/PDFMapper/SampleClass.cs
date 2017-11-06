@@ -15,7 +15,6 @@ namespace PDFMapper
             subclassVal = new SubClass();
 
         }
-
         public string stringval { get; set; }
 
         public int intval { get; set; }
@@ -44,5 +43,4 @@ namespace PDFMapper
         enum1 = 0,
         enum2 = 1
     }
-
 }

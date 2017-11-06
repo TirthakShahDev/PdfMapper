@@ -5,39 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PDFMapper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="990.66" Width="1540.421">
-    <Grid Margin="0,0,0,5" HorizontalAlignment="Left" Width="1418">
+        Title="MainWindow" Height="858.32" Width="1540.421">
+    <Grid Margin="0,0,0,7" HorizontalAlignment="Left" Width="1418">
         <Button x:Name="button" Content="Select PDF" HorizontalAlignment="Left" Margin="13,28,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
         <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="textBox" HorizontalAlignment="Left" Height="93" Margin="10,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="497"/>
         <TextBox x:Name="txtinitial" HorizontalAlignment="Left" Height="23" Margin="13,0,0,0" TextWrapping="Wrap" Text="C:\Projects\FormBuilder\FormBuilder\FormBuilder\Carriers" VerticalAlignment="Top" Width="395"/>
         <Button x:Name="button1" Content="Copy" HorizontalAlignment="Left" Margin="13,172,0,0" VerticalAlignment="Top" Width="47" Click="button1_Click" RenderTransformOrigin="0.446,2.25"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="10,197,0,0" Width="694" Background="#FFF0F0F0" ColumnHeaderHeight="100" Height="658" VerticalAlignment="Top">
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="10,206,0,0" Width="497" Background="#FFF0F0F0" ColumnHeaderHeight="100" Height="471" VerticalAlignment="Top" Visibility="Collapsed">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Display Name">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBox x:Name="txtproperties" Text="caseInformation" Width="300" KeyUp="txtproperties_KeyUp" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="button2" Content="CreateClasses" HorizontalAlignment="Left" Height="40" Margin="13,881,0,0" VerticalAlignment="Top" Width="275" Click="button2_Click"/>
+        <Button x:Name="button2" Content="CreateClasses" HorizontalAlignment="Left" Height="40" Margin="13,709,0,-281" VerticalAlignment="Top" Width="275" Click="button2_Click" Visibility="Hidden"/>
+        <!--<TextBlock x:Name="textBlock"
+                   HorizontalAlignment="Left" 
+                   Margin="559,74,0,0" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   Height="675" 
+                   Width="826"/>-->
         <TextBlock x:Name="textBlock"
            HorizontalAlignment="Left"
            VerticalAlignment="Center"
            FontFamily="Segoe UI"
            FontSize="12"
-           Margin="1019,75,-38,206" 
+           Margin="556,56,0,90" 
            Height="674" 
            Width="437"/>
-        <Button x:Name="button3" Content="Copy" HorizontalAlignment="Left" Margin="1049,696,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click" RenderTransformOrigin="0.603,3.209"/>
-        <Border Width="298" Height="155" BorderBrush="Black" 
-        BorderThickness="1" Margin="709,423,411,377" >
-            <ScrollViewer Width="298" Height="155" VerticalScrollBarVisibility="Auto" Margin="-1" HorizontalAlignment="Left" >
-                <ScrollViewer.BorderBrush>
-                    <ImageBrush/>
-                </ScrollViewer.BorderBrush>
+        <Button x:Name="button3" Content="Copy" HorizontalAlignment="Left" Margin="586,735,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="13,787,0,0" TextWrapping="Wrap" Text="dog" VerticalAlignment="Top" Width="120" KeyUp="textBox1_KeyUp"/>
+       
+        <Border Width="298" Height="150" BorderBrush="Black" 
+        BorderThickness="1" Margin="157,660,963,10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Name="resultStack"></StackPanel>
             </ScrollViewer>
         </Border>
